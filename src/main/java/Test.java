@@ -9,7 +9,7 @@ import java.util.*;
 public class Test {
     public static void main(String[] args) throws Exception{
 
-        URL resource = Test.class.getClassLoader().getResource("item_data.csv");
+        URL resource = Test.class.getClassLoader().getResource("item.csv");
         File input_file = new File(resource.toURI());
         CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(input_file),"Shift-JIS"));
 
@@ -23,18 +23,28 @@ public class Test {
         String [] nextLine;
         while ((nextLine = reader.readNext()) != null) {   // 2
             String itemId = nextLine[1];
+
             if(itemId.startsWith("ins") && !itemId.equals("ins0")) {
-                String itemImg = nextLine[3].split(" ")[0];
+                String itemOriginPrice = nextLine[9];
+                String itemPrice = nextLine[8];
+                String itemImgDiv = nextLine[25];
+                int start_index = itemImgDiv.indexOf("img src=");
+                int end_index = itemImgDiv.indexOf("\" alt=");
+                String itemImg = itemImgDiv.substring(start_index + 9, end_index);
                 String category = itemImg.substring(itemImg.indexOf("/item/")+6, itemImg.lastIndexOf("/"));
+
                 if(!category.startsWith(":")){
                     Map<String, String> map = new HashMap<>();
                     map.put("item_id", itemId);
+                    map.put("item_origin_price", itemOriginPrice);
+                    map.put("item_price", itemPrice);
                     map.put("item_img", itemImg);
                     switch (category){
                         case "tops" : topsList.add(map);break;
                         case "bottoms" : bottomsList.add(map);break;
                         case "onepiece" : onepieceList.add(map);break;
                         case "outer" : outerList.add(map);break;
+                        case "shoes" : goodsList.add(map);break;
                         case "goods" : goodsList.add(map);break;
                         case "bag" : bagList.add(map);break;
                     }
@@ -42,12 +52,12 @@ public class Test {
             }
         }
 
-        Collections.reverse(topsList);
-        Collections.reverse(bottomsList);
-        Collections.reverse(onepieceList);
-        Collections.reverse(outerList);
-        Collections.reverse(goodsList);
-        Collections.reverse(bagList);
+//        Collections.reverse(topsList);
+//        Collections.reverse(bottomsList);
+//        Collections.reverse(onepieceList);
+//        Collections.reverse(outerList);
+//        Collections.reverse(goodsList);
+//        Collections.reverse(bagList);
 
         JSONArray topsArray = new JSONArray(topsList);
         JSONArray bottomsArray = new JSONArray(bottomsList);
