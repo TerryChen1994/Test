@@ -23,10 +23,9 @@ public class TestA {
 
                 String itemOriginPrice = nextLine[9];
                 String itemPrice = nextLine[8];
-                String itemImgDiv = nextLine[25];
-                int start_index = itemImgDiv.indexOf("img src=");
-                int end_index = itemImgDiv.indexOf("\" alt=");
-                String itemImg = itemImgDiv.substring(start_index + 9, end_index);
+                String itemImgDiv = nextLine[26];
+                String[] imgList = itemImgDiv.split("\n");
+                String itemImg = imgList[0].split(" ")[0];
 
                 Map<String, String> map = new HashMap<>();
                 map.put("item_id", itemId);
@@ -37,6 +36,7 @@ public class TestA {
             }
         }
 
+        Collections.reverse(list);
         JSONArray jsonArray = new JSONArray(list);
 
         System.out.println(jsonArray.toString());
