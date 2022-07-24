@@ -17,7 +17,9 @@ public class AddressParser {
         CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(input_file),"Shift-JIS"));
 
         File output_file = new File("output/yamato_result.csv");
-        CSVWriter writer = new CSVWriter(new FileWriter(output_file));
+        FileOutputStream fileOutputStream = new FileOutputStream(output_file);
+        Writer wri = new OutputStreamWriter(fileOutputStream, "Shift_JIS");
+        CSVWriter writer = new CSVWriter(wri);
 
         String[] header = reader.readNext();
         writer.writeNext(header);
