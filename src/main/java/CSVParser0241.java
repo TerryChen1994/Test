@@ -8,36 +8,32 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVParser {
+public class CSVParser0241 {
     public static void main(String[] args) throws URISyntaxException, IOException, CsvValidationException {
 
-        URL resource = CSVParser.class.getClassLoader().getResource("list.csv");
+        URL resource = CSVParser0241.class.getClassLoader().getResource("output_not0248.csv");
         File input_file = new File(resource.toURI());
         CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(input_file),"Shift-JIS"));
 
-        File output_file1 = new File("output/output1.csv");
+        File output_file1 = new File("output/ins0241/output1.csv");
         Writer wri1 = new OutputStreamWriter(new FileOutputStream(output_file1), "Shift_JIS");
         CSVWriter writer1 = new CSVWriter(wri1);
 
-        File output_file2 = new File("output/output2.csv");
+        File output_file2 = new File("output/ins0241/output2.csv");
         Writer wri2 = new OutputStreamWriter(new FileOutputStream(output_file2), "Shift_JIS");
         CSVWriter writer2 = new CSVWriter(wri2);
 
-        File output_file3 = new File("output/output3.csv");
+        File output_file3 = new File("output/ins0241/output3.csv");
         Writer wri3 = new OutputStreamWriter(new FileOutputStream(output_file3), "Shift_JIS");
         CSVWriter writer3 = new CSVWriter(wri3);
 
-        File output_file4 = new File("output/output4.csv");
+        File output_file4 = new File("output/ins0241/output4.csv");
         Writer wri4 = new OutputStreamWriter(new FileOutputStream(output_file4), "Shift_JIS");
         CSVWriter writer4 = new CSVWriter(wri4);
 
-        File output_filen = new File("output/output_other.csv");
+        File output_filen = new File("output/ins0241/output_other.csv");
         Writer wrin = new OutputStreamWriter(new FileOutputStream(output_filen), "Shift_JIS");
         CSVWriter writern = new CSVWriter(wrin);
-
-        File output_file_no = new File("output/output_not0248.csv");
-        Writer wrinot = new OutputStreamWriter(new FileOutputStream(output_file_no), "Shift_JIS");
-        CSVWriter writernot = new CSVWriter(wrinot);
 
         String[] header = reader.readNext();
         writer1.writeNext(header);writer1.flush();
@@ -45,7 +41,6 @@ public class CSVParser {
         writer3.writeNext(header);writer3.flush();
         writer4.writeNext(header);writer4.flush();
         writern.writeNext(header);writern.flush();
-        writernot.writeNext(header);writernot.flush();
 
         String[] preLine = new String[0];
         String[] currentLine;
@@ -53,30 +48,10 @@ public class CSVParser {
 
         while ((currentLine = reader.readNext()) != null) {
 
-            String product = currentLine[10].replaceAll("\n","")
-                    .replaceAll("\"","")
-                    .replaceAll("カラー:","")
-                    .replaceAll("サイズ:","")
-                    .replaceAll("【{1}.*。{1}","");
-            if(currentLine[8].equals("ins0248")) {
-                if (product.contains("グレー")) {
-                    product = product.replaceAll("グレー", "灰");
-                } else if (product.contains("アイボリー")) {
-                    product = product.replaceAll("アイボリー", "米");
-                } else if (product.contains("ブラック")) {
-                    product = product.replaceAll("ブラック", "黒");
-                } else if (product.contains("グリーン")) {
-                    product = product.replaceAll("グリーン", "緑");
-                } else if (product.contains("ネイビー")) {
-                    product = product.replaceAll("ネイビー", "紺");
-                }
-            }
-            currentLine[10] = product;
-
             // 第一行以后
             if(preLine.length > 0){
                 if (!currentLine[0].equals(preLine[0])) {
-                    if(is0248(list)) {
+                    if(is0241(list)) {
                         int sum = sum(list);
                         // 1单
                         if (list.size() == 1) {
@@ -192,8 +167,8 @@ public class CSVParser {
                         }
                     }
                     else{
-                        writernot.writeAll(list);
-                        writernot.flush();
+                        writern.writeAll(list);
+                        writern.flush();
                     }
                     list.clear();
                 }
@@ -217,9 +192,9 @@ public class CSVParser {
         return sum;
     }
 
-    public static boolean is0248(List<String[]> list){
+    public static boolean is0241(List<String[]> list){
         for (String[] current : list) {
-            if(!current[8].equals("ins0248")){
+            if(!current[8].equals("ins0241")){
                 return false;
             }
         }
