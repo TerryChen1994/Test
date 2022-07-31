@@ -25,19 +25,42 @@ public class AddressParser {
         writer.writeNext(header);
         writer.flush();
 
-        Pattern p = Pattern.compile(".*[0-9１２３４５６７８９]+(丁目|-|ー|番地|番)+[0-9１２３４５６７８９]+");
-
         String[] currentLine;
         while ((currentLine = reader.readNext()) != null) {
-            Matcher m = p.matcher(currentLine[11]);
-            if(m.find()) {
-                String add1 = m.group();
-                String add2 = currentLine[11].substring(m.group().length()).replaceAll("　", " ").trim();
-                currentLine[11] = add1;
-                currentLine[12] = add2;
+            String address = currentLine[11];
+            int index = 0;
+            label1: for(int i = 0; i < address.length(); i ++){
+                if(isInteger(String.valueOf(address.charAt(i)))){
+                    for(int j = i + 1; j < address.length(); j++){
+                        if(!isContinue(String.valueOf(address.charAt(j)))){
+                            index = j;
+                            break label1;
+                        }
+                    }
+                }
             }
+
+            if(index != 0){
+                currentLine[11] = address.substring(0, index).trim();
+                currentLine[12] = address.substring(index).trim();
+            }
+
             writer.writeNext(currentLine);
             writer.flush();
         }
+    }
+
+    public static boolean isInteger(String word){
+        if(word.matches("[0-9０-９]+")){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isContinue(String word){
+        if(word.matches("([0-9０-９]|丁|目|地|番|号|ー|-|−|—)+")){
+            return true;
+        }
+        return false;
     }
 }
