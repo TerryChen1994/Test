@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVParser0241 {
-    public static String item = "ins0227";
+    public static String item = "cins0241";
 
     public static void main(String[] args) throws URISyntaxException, IOException, CsvValidationException {
 

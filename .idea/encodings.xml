@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/output" charset="Shift_JIS" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="Shift_JIS" />
     <file url="file://$PROJECT_DIR$/src/main/resources/list.csv" charset="Shift_JIS" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/output_other.csv" charset="Shift_JIS" />
   </component>
 </project>
