@@ -9,29 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVParser0241 {
+    public static String item = "cins0241";
+
     public static void main(String[] args) throws URISyntaxException, IOException, CsvValidationException {
 
-        URL resource = CSVParser0241.class.getClassLoader().getResource("output_not0248.csv");
+        URL resource = CSVParser0241.class.getClassLoader().getResource("output_other.csv");
         File input_file = new File(resource.toURI());
         CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(input_file),"Shift-JIS"));
 
-        File output_file1 = new File("output/ins0241/output1.csv");
+        File output_file1 = new File("output/"+item+"/output1.csv");
+        output_file1.createNewFile();
         Writer wri1 = new OutputStreamWriter(new FileOutputStream(output_file1), "Shift_JIS");
         CSVWriter writer1 = new CSVWriter(wri1);
 
-        File output_file2 = new File("output/ins0241/output2.csv");
+        File output_file2 = new File("output/"+item+"/output2.csv");
+        output_file2.createNewFile();
         Writer wri2 = new OutputStreamWriter(new FileOutputStream(output_file2), "Shift_JIS");
         CSVWriter writer2 = new CSVWriter(wri2);
 
-        File output_file3 = new File("output/ins0241/output3.csv");
+        File output_file3 = new File("output/"+item+"/output3.csv");
+        output_file3.createNewFile();
         Writer wri3 = new OutputStreamWriter(new FileOutputStream(output_file3), "Shift_JIS");
         CSVWriter writer3 = new CSVWriter(wri3);
 
-        File output_file4 = new File("output/ins0241/output4.csv");
+        File output_file4 = new File("output/"+item+"/output4.csv");
+        output_file4.createNewFile();
         Writer wri4 = new OutputStreamWriter(new FileOutputStream(output_file4), "Shift_JIS");
         CSVWriter writer4 = new CSVWriter(wri4);
 
-        File output_filen = new File("output/ins0241/output_other.csv");
+        File output_filen = new File("output/"+item+"/output_other.csv");
+        output_filen.createNewFile();
         Writer wrin = new OutputStreamWriter(new FileOutputStream(output_filen), "Shift_JIS");
         CSVWriter writern = new CSVWriter(wrin);
 
@@ -194,7 +201,7 @@ public class CSVParser0241 {
 
     public static boolean is0241(List<String[]> list){
         for (String[] current : list) {
-            if(!current[8].equals("ins0241")){
+            if(!current[8].equals(item)){
                 return false;
             }
         }
