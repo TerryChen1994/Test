@@ -1,5 +1,5 @@
 test.iml
-out
-output
+out/
+output/
 src/main/resources/*.csv
 .idea
